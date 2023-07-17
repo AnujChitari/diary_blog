@@ -1,0 +1,23 @@
+<h1>Diary Entries</h1>
+{% for entry in page_obj %}
+  <h2>{{ entry.entry_date }}</h2>
+  <p>{{ entry.content }}</p>
+
+  <a href="{% url 'edit_diary_entry' entry_id=entry.id %}">Edit</a>
+  
+  <!-- <a href="{% url 'edit_entry' entry.id %}">Edit</a> -->
+  <hr>
+{% endfor %}
+
+<h2>Add a New Diary Entry</h2>
+{% include 'diary_form.html' %}
+
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+  <span class="current-page">{{ page_obj.number }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
